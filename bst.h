@@ -14,10 +14,10 @@ typedef docente *dado;
 typedef struct indice{
     int chave;
     int indice;
-}indice;
+}tipo_dado;
 
 typedef struct no_bst{ 
-    indice *dado;
+    tipo_dado *dado;
     struct no *esq;
     struct no *dir;
 }no_bst;
