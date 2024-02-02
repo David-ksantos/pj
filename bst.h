@@ -29,6 +29,6 @@ typedef struct tabela{
     arvore_bst indices;
     
 }tabela;
-
+// teste commit
 
 #endif
