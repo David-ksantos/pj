@@ -21,12 +21,12 @@ typedef struct no_bst{
     struct no *esq;
     struct no *dir;
 }no_bst;
-typedef no_bst *arvore_bst;
+typedef no_bst *arvore;
 
 
 typedef struct tabela{
-    FILE *arquivo;
-    arvore_bst indices;
+    FILE *arquivo_dados;
+    arvore indices;
     
 }tabela;
 // teste commit
