@@ -25,20 +25,6 @@ void finalizar (tabela *tab) {
 	salvar_arquivo("indices.dat", tab->indices);
 }
 
-void adicionarDocente(tabela *tab, dado docente){
-	if(tab->arquivo_dados != NULL) {
-			tipo_dado * novo = (tipo_dado *) malloc(sizeof(tipo_dado));
-
-			novo->chave = docente->codigo;
-
-			fseek(tab->arquivo_dados, 0L, SEEK_END);
-			novo->indice = ftell(tab->arquivo_dados);
-
-			fwrite(docente, sizeof(dado), 1, tab->arquivo_dados);
-			tab->indices = adicionar(novo, tab->indices);
-	}
-}
-
 arvore adicionar (tipo_dado *valor, arvore raiz) {
 	if(raiz == NULL) {
 		arvore novo = (arvore) malloc(sizeof(struct no_bst));
@@ -55,6 +41,22 @@ arvore adicionar (tipo_dado *valor, arvore raiz) {
 	}
 	return raiz;
 }
+
+void adicionarDado(tabela *tab, dado *docente){
+	if(tab->arquivo_dados != NULL) {
+			tipo_dado * novo = (tipo_dado *) malloc(sizeof(tipo_dado));
+
+			novo->chave = docente->codigo;
+
+			fseek(tab->arquivo_dados, 0L, SEEK_END);
+			novo->indice = ftell(tab->arquivo_dados);
+
+			fwrite(docente, sizeof(dado), 1, tab->arquivo_dados);
+			tab->indices = adicionar(novo, tab->indices);
+	}
+}
+
+
 
 int altura(arvore raiz) {
 	if(raiz == NULL) {
@@ -97,7 +99,7 @@ void pre_order(arvore raiz, tabela *tab) {
 }
 
 void imprimir_elemento(arvore raiz, tabela * tab) {
-	dado temp = (dado) malloc (sizeof(dado));
+	dado *temp = (dado*) malloc (sizeof(dado));
     temp->codigo = 1000;
     printf("indice: %d\n", raiz->dado->indice);
 
@@ -136,8 +138,8 @@ void tirar_enter(char *string) {
 	string[strlen(string) -1] = '\0';
 }
 
-dado pegar_dado(){
-    dado novo = (dado)malloc(sizeof(docente));
+dado *pegar_dado(){
+    dado *novo = (dado*)malloc(sizeof(dado));
 
     getchar();
     printf("digite o codigo: ");
