@@ -6,10 +6,8 @@ typedef struct docente{
     char nome[30];
     char curso[30];
     char disciplina[30];
-    char sexo;
+    char sexo[20];
 }dado;
-
-
 
 typedef struct indice{
     int chave;
@@ -18,8 +16,8 @@ typedef struct indice{
 
 typedef struct no_bst{ 
     tipo_dado *dado;
-    struct no *esq;
-    struct no *dir;
+    struct no_bst *esq;
+    struct no_bst *dir;
 }no_bst;
 typedef no_bst *arvore;
 
@@ -32,7 +30,7 @@ typedef struct tabela{
 // teste commit
 int inicializarTabela(tabela *tab);
 void finalizar (tabela *tab);
-void adicionarDado(tabela *tab, dado *livro);
+void adicionarDado(tabela *tab, dado *docente);
 	
 
 void inicializar(arvore *raiz);

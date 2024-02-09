@@ -142,11 +142,7 @@ dado *pegar_dado(){
     dado *novo = (dado*)malloc(sizeof(dado));
 
     getchar();
-    printf("digite o codigo: ");
-    scanf("%d", novo->codigo);
-    tirar_enter(novo->codigo);
-
-    printf("digite o nome: ");
+   	printf("digite o nome: ");
     fgets(novo->nome, 30, stdin);
     tirar_enter(novo->nome);
 
@@ -158,8 +154,14 @@ dado *pegar_dado(){
     fgets(novo->disciplina, 30, stdin);
     tirar_enter(novo->disciplina);
 
-    printf("digite o sexo: ");
-    scanf("%c", novo->sexo);
+	printf("digite o sexo: ");
+    fgets(novo->sexo, 20, stdin);
+	tirar_enter(novo->sexo);
+	
+	printf("digite o codigo: ");
+    scanf("%d", novo->codigo);
+
+    
     
 
     return novo;

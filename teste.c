@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "bst.h"
+#include "bst.c"
 
 int main(int argc, char * argv[]) {
 	tabela tab;
@@ -8,6 +9,7 @@ int main(int argc, char * argv[]) {
 	inicializarTabela(&tab);
 
 	while(1) {
+		printf("1-altura\n2-cadastrar\n3-pre-order\n10-salvar arquivo\n11-carregar arquivo");
 		scanf("%d", &opcao);
 
 		switch(opcao) {
@@ -38,9 +40,10 @@ int main(int argc, char * argv[]) {
 				case 11:
 						tab.indices = carregar_arquivo("dados.dat", tab.indices);
 						break;
+					 
 				case 99:
 						finalizar(&tab);
 						exit(0);
 		}
 	}
-}
+return 0;}
