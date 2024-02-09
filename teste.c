@@ -9,7 +9,7 @@ int main(int argc, char * argv[]) {
 	inicializarTabela(&tab);
 
 	while(1) {
-		printf("1-altura\n2-cadastrar\n3-pre-order\n10-salvar arquivo\n11-carregar arquivo");
+		printf("1-altura\n2-cadastrar\n3-pre-order\n10-salvar arquivo\n11-carregar arquivo\n");
 		scanf("%d", &opcao);
 
 		switch(opcao) {
