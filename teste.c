@@ -9,7 +9,7 @@ int main(int argc, char * argv[]) {
 	inicializarTabela(&tab);
 
 	while(1) {
-		printf("1-altura\n2-cadastrar\n3-pre-order\n10-salvar arquivo\n11-carregar arquivo\n");
+		printf("1-altura\n2-cadastrar\n3-preorder\n4-inorder\n5-posorder\n10-salvar arquivo\n11-carregar arquivo\n");
 		scanf("%d", &opcao);
 
 		switch(opcao) {
@@ -25,14 +25,10 @@ int main(int argc, char * argv[]) {
 						printf("\n");
 						break;
 				case 4:
-						pre_order(tab.indices, &tab);
-						printf("\n");
-						break;
-				case 5:
 						in_order(tab.indices, &tab);
 						printf("\n");
 						break;
-				case 6:
+				case 5:
 						pos_order(tab.indices, &tab);
 						printf("\n");
 						break;
