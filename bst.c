@@ -98,6 +98,24 @@ void pre_order(arvore raiz, tabela *tab) {
 	}
 }
 
+void in_order(arvore raiz, tabela *tab) {
+	if(raiz != NULL) {
+		pre_order(raiz->esq, tab);
+		imprimir_elemento(raiz, tab);
+		pre_order(raiz->dir, tab);
+	}
+}
+
+void pos_order(arvore raiz, tabela *tab) {
+	if(raiz != NULL) {
+		pre_order(raiz->esq, tab);
+		pre_order(raiz->dir, tab);
+		imprimir_elemento(raiz, tab);
+	}
+}
+
+
+
 void imprimir_elemento(arvore raiz, tabela * tab) {
 	dado *temp = (dado*) malloc (sizeof(dado));
     temp->codigo = 1000;

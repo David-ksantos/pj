@@ -41,6 +41,9 @@ int maior(int a, int b);
 tipo_dado * maior_elemento(arvore raiz);
 tipo_dado * menor_elemento(arvore raiz);
 void pre_order(arvore raiz, tabela *tab);
+void in_order(arvore raiz, tabela *tab);
+
+void pos_order(arvore raiz, tabela *tab);
 arvore remover (int valor, arvore raiz);
 void imprimir_elemento(arvore raiz, tabela *tab);
 dado * pegar_dado();

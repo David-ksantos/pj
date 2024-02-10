@@ -13,7 +13,7 @@ int main(int argc, char * argv[]) {
 		scanf("%d", &opcao);
 
 		switch(opcao) {
-				int valor;
+				
 				case 1:
 						printf("%d\n", altura(tab.indices));
 						break;
@@ -29,7 +29,11 @@ int main(int argc, char * argv[]) {
 						printf("\n");
 						break;
 				case 5:
-						pre_order(tab.indices, &tab);
+						in_order(tab.indices, &tab);
+						printf("\n");
+						break;
+				case 6:
+						pos_order(tab.indices, &tab);
 						printf("\n");
 						break;
 
@@ -44,6 +48,9 @@ int main(int argc, char * argv[]) {
 				case 99:
 						finalizar(&tab);
 						exit(0);
+						break;
+				default:
+						printf("opcao invalida\n");
 		}
 	}
-return 0;}
+}
