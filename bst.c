@@ -1,8 +1,9 @@
+#ifndef BST_C
+#define BST_C
+
 #include<stdio.h>
 #include<stdlib.h>
 #include <string.h>
-
-
 #include "bst.h"
 
 
@@ -177,7 +178,7 @@ dado *pegar_dado(){
 	tirar_enter(novo->sexo);
 	
 	printf("digite o codigo: ");
-    scanf("%d", novo->codigo);
+    scanf("%d", &novo->codigo);
 
     
     
@@ -223,4 +224,4 @@ arvore carregar_arquivo(char *nome, arvore a) {
 	return a;
 }
 
-
+#endif
