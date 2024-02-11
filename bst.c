@@ -104,15 +104,6 @@ arvore1 adicionar (tipo_dado *valor, arvore1 raiz) {
     }
 }*/
 
-
-
-
-
-
-
-
-
-
 void inicializar(arvore1 *raiz){
     *raiz = NULL;
 }
@@ -137,7 +128,10 @@ void finalizar (tabela *tab) {
 void adicionarDado(tabela *tab, dado *docente){
 	if(tab->arquivo_dados != NULL) {
 			tipo_dado * novo = (tipo_dado *) malloc(sizeof(tipo_dado));
-
+			if (novo == NULL) {
+            printf("Erro de alocacao\n");
+            exit(1);
+        }
 			novo->chave = docente->codigo;
 
 			fseek(tab->arquivo_dados, 0L, SEEK_END);
@@ -147,6 +141,7 @@ void adicionarDado(tabela *tab, dado *docente){
 			tab->indices = adicionar(novo, tab->indices);
 	}
 }
+
 
 
 

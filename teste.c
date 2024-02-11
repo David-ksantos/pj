@@ -56,7 +56,7 @@ int main(int argc, char * argv[]) {
 						scanf("%d", &valor);
 						tab.indices = remover_codigo(valor, tab.indices);
 						break;
-				case 8:
+				/*case 8:
 						printf("Digite o nome para buscar: ");
                 		char nome[30];
                 		getchar(); 
@@ -73,7 +73,7 @@ int main(int argc, char * argv[]) {
                 		} 	else
 					 	{ printf("Registro não encontrado\n");
                 		}
-                		break;
+                		break;*/
 
 				case 10:
 						salvar_arquivo("dados.dat", tab.indices);

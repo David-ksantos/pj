@@ -15,6 +15,11 @@ typedef struct indice{
     int indice;
 }tipo_dado;
 
+typedef struct indice2{
+    char chave[30];
+    int indice2;
+}tipo_dado2;
+
 typedef struct no_bst{ 
     tipo_dado *dado;
     struct no_bst *esq;
