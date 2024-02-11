@@ -7,7 +7,113 @@
 #include "bst.h"
 
 
-void inicializar(arvore *raiz){
+// BST --------------------------------------------------------------------------------------------------------------------
+dado * buscar_codigo(int chave, arvore1 raiz, tabela *tab) {
+    if (raiz == NULL) {
+        return NULL;
+    }
+
+    if (chave == raiz->dado->chave) {
+        dado *registro_encontrado = (dado *)malloc(sizeof(dado));
+        if (registro_encontrado == NULL) {
+            printf("Erro de alocacao\n");
+            exit(1);
+        }
+        fseek(tab->arquivo_dados, raiz->dado->indice, SEEK_SET);
+        if (fread(registro_encontrado, sizeof(dado), 1, tab->arquivo_dados) != 1) {
+            printf("Erro ao ler registro\n");
+            exit(1);
+        }
+        return registro_encontrado;
+    }
+    else if (chave > raiz->dado->chave) {
+        return buscar_codigo(chave, raiz->dir, tab);
+    }
+    else {
+        return buscar_codigo(chave, raiz->esq, tab);
+    }
+}
+
+arvore1 remover_codigo (int valor, arvore1 raiz) {
+	if(raiz == NULL) 
+		return NULL;
+	
+	if(raiz->dado->chave == valor) {		
+		if(raiz->esq == NULL) {
+			return raiz->dir;
+		}
+		if(raiz->dir == NULL) {
+			return raiz->esq;
+		}
+		raiz->dado = maior_elemento(raiz->esq);
+		raiz->esq = remover_codigo(raiz->dado->chave, raiz->esq);
+		return raiz;
+	}	
+	if(valor > raiz->dado->chave) {
+			raiz->dir = remover_codigo(valor, raiz->dir);
+	} else {
+			raiz->esq = remover_codigo(valor, raiz->esq);
+	}
+	return raiz;
+}
+
+arvore1 adicionar (tipo_dado *valor, arvore1 raiz) {
+	if(raiz == NULL) {
+		arvore1 novo = (arvore1) malloc(sizeof(struct no_bst));
+		novo->dado = valor;
+		novo->esq = NULL;
+		novo->dir = NULL;
+		return novo;
+	}
+
+	if(valor->chave > raiz->dado->chave) {
+		raiz->dir = adicionar(valor, raiz->dir);
+	} else {
+		raiz->esq = adicionar(valor, raiz->esq);
+	}
+	return raiz;
+}
+
+//AVL ----------------------------------------------------------------------------------------------------------------------------------
+/*dado * buscar_nome(char *nome, arvore1 raiz, tabela *tab) {
+    if (raiz == NULL) {
+        return NULL;
+    }
+
+    int comparacao = strcmp(nome, raiz->dado->nome);
+
+    if (comparacao == 0) {
+        dado *registro_encontrado = (dado *)malloc(sizeof(dado));
+        if (registro_encontrado == NULL) {
+            printf("Erro de alocação de memória.\n");
+            exit(1);
+        }
+        fseek(tab->arquivo_dados, raiz->dado->indice, SEEK_SET);
+        if (fread(registro_encontrado, sizeof(dado), 1, tab->arquivo_dados) != 1) {
+            printf("Erro ao ler registro do arquivo de dados.\n");
+            exit(1);
+        }
+        
+        return registro_encontrado;
+    }
+    else if (comparacao > 0) {
+        return buscar_nome(nome, raiz->dir, tab);
+    }
+    else {
+        return buscar_nome(nome, raiz->esq, tab);
+    }
+}*/
+
+
+
+
+
+
+
+
+
+
+void inicializar(arvore1 *raiz){
     *raiz = NULL;
 }
 
@@ -26,22 +132,7 @@ void finalizar (tabela *tab) {
 	salvar_arquivo("indices.dat", tab->indices);
 }
 
-arvore adicionar (tipo_dado *valor, arvore raiz) {
-	if(raiz == NULL) {
-		arvore novo = (arvore) malloc(sizeof(struct no_bst));
-		novo->dado = valor;
-		novo->esq = NULL;
-		novo->dir = NULL;
-		return novo;
-	}
 
-	if(valor->chave > raiz->dado->chave) {
-		raiz->dir = adicionar(valor, raiz->dir);
-	} else {
-		raiz->esq = adicionar(valor, raiz->esq);
-	}
-	return raiz;
-}
 
 void adicionarDado(tabela *tab, dado *docente){
 	if(tab->arquivo_dados != NULL) {
@@ -59,7 +150,7 @@ void adicionarDado(tabela *tab, dado *docente){
 
 
 
-int altura(arvore raiz) {
+int altura(arvore1 raiz) {
 	if(raiz == NULL) {
 		return 0;
 	}
@@ -73,7 +164,7 @@ int maior(int a, int b) {
 		return b;
 }
 
-tipo_dado * maior_elemento(arvore raiz) {
+tipo_dado * maior_elemento(arvore1 raiz) {
 	if(raiz == NULL)
 			return NULL;
 	if(raiz->dir == NULL)
@@ -82,7 +173,7 @@ tipo_dado * maior_elemento(arvore raiz) {
 			return maior_elemento(raiz->dir);
 }
 
-tipo_dado * menor_elemento(arvore raiz) {
+tipo_dado * menor_elemento(arvore1 raiz) {
 	if(raiz == NULL)
 			return NULL;
 	if(raiz->esq == NULL)
@@ -91,7 +182,7 @@ tipo_dado * menor_elemento(arvore raiz) {
 			return maior_elemento(raiz->esq);
 }
 
-void pre_order(arvore raiz, tabela *tab) {
+void pre_order(arvore1 raiz, tabela *tab) {
 	if(raiz != NULL) {
 		imprimir_elemento(raiz, tab);
 		pre_order(raiz->esq, tab);
@@ -99,7 +190,7 @@ void pre_order(arvore raiz, tabela *tab) {
 	}
 }
 
-void in_order(arvore raiz, tabela *tab) {
+void in_order(arvore1 raiz, tabela *tab) {
 	if(raiz != NULL) {
 		pre_order(raiz->esq, tab);
 		imprimir_elemento(raiz, tab);
@@ -107,7 +198,7 @@ void in_order(arvore raiz, tabela *tab) {
 	}
 }
 
-void pos_order(arvore raiz, tabela *tab) {
+void pos_order(arvore1 raiz, tabela *tab) {
 	if(raiz != NULL) {
 		pre_order(raiz->esq, tab);
 		pre_order(raiz->dir, tab);
@@ -117,7 +208,7 @@ void pos_order(arvore raiz, tabela *tab) {
 
 
 
-void imprimir_elemento(arvore raiz, tabela * tab) {
+void imprimir_elemento(arvore1 raiz, tabela * tab) {
 	dado *temp = (dado*) malloc (sizeof(dado));
     temp->codigo = 1000;
     printf("indice: %d\n", raiz->dado->indice);
@@ -130,28 +221,7 @@ void imprimir_elemento(arvore raiz, tabela * tab) {
 	free(temp);
 }
 
-arvore remover (int valor, arvore raiz) {
-	if(raiz == NULL) 
-		return NULL;
-	
-	if(raiz->dado->chave == valor) {		
-		if(raiz->esq == NULL) {
-			return raiz->dir;
-		}
-		if(raiz->dir == NULL) {
-			return raiz->esq;
-		}
-		raiz->dado = maior_elemento(raiz->esq);
-		raiz->esq = remover(raiz->dado->chave, raiz->esq);
-		return raiz;
-	}	
-	if(valor > raiz->dado->chave) {
-			raiz->dir = remover(valor, raiz->dir);
-	} else {
-			raiz->esq = remover(valor, raiz->esq);
-	}
-	return raiz;
-}
+
 
 void tirar_enter(char *string) {
 	string[strlen(string) -1] = '\0';
@@ -188,7 +258,7 @@ dado *pegar_dado(){
 
 
 
-void salvar_arquivo(char *nome, arvore a) {
+void salvar_arquivo(char *nome, arvore1 a) {
 	FILE *arq;
 	arq = fopen(nome, "wb");
 	if(arq != NULL) {
@@ -197,7 +267,7 @@ void salvar_arquivo(char *nome, arvore a) {
 	}
 }
 
-void salvar_auxiliar(arvore raiz, FILE *arq){
+void salvar_auxiliar(arvore1 raiz, FILE *arq){
 	if(raiz != NULL) {
 		fwrite(raiz->dado, sizeof(tipo_dado), 1, arq);
 		salvar_auxiliar(raiz->esq, arq);
@@ -206,7 +276,7 @@ void salvar_auxiliar(arvore raiz, FILE *arq){
 
 }
 
-arvore carregar_arquivo(char *nome, arvore a) {
+arvore1 carregar_arquivo(char *nome, arvore1 a) {
 	FILE *arq;
 	arq = fopen(nome, "rb");
 	tipo_dado * temp;
